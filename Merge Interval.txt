@@ -1,0 +1,62 @@
+#include <bits/stdc++.h> 
+/*
+
+    intervals[i][0] = start point of i'th interval
+    intervals[i][1] = finish point of i'th interval
+
+*/
+
+vector<vector<int>> mergeIntervals(vector<vector<int>> &v)
+{
+    int n = v.size();
+    if(n==1){
+        return v;
+    }
+    sort(v.begin(),v.end());
+    int j=0;
+    for (int i = 0; i < n; i++)
+    {
+        int lower = v[i][0];
+        int upper = v[i][1];
+        while(i<n-1)
+        {
+          if(upper>=v[i+1][0]){
+              upper = max(upper,v[i+1][1]);
+              i++;
+          }
+          else{
+              break;
+          }
+        }
+        v[j][0]=lower,v[j][1]=upper;
+        j++;
+    }
+    v.resize(j);
+    return v;
+}
+
+
+//Using Extra Space
+// int n = v.size();
+//     if(n==1){
+//         return v;
+//     }
+//     sort(v.begin(),v.end());
+//     vector<vector<int>>ans;
+//     for(int i=0;i<n;i++)
+//     {
+//         int lower = v[i][0];
+//         int upper = v[i][1];
+//         while(i<n-1)
+//         {
+//           if(upper>=v[i+1][0]){
+//               upper = max(upper,v[i+1][1]);
+//               i++;
+//           }
+//           else{
+//               break;
+//           }
+//         }
+//         ans.push_back({lower,upper});
+//     }
+//     return ans;
