@@ -1,0 +1,13 @@
+#include <bits/stdc++.h>
+
+int findDuplicate(vector<int> &arr, int n){
+	vector<bool>v(n , false);
+    for(int i=0;i<n;i++)
+	{
+	  if(v[arr[i]]){
+		  return arr[i];
+	  }	
+	  v[arr[i]]=true;
+	}
+	return 0;
+}
