@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+
+#define Y "Yes"
+#define N "No"
+string fourSum(vector<int> arr, int target, int n) {
+    unordered_map<long long ,pair<long long,long long>>mp;
+    for(int i=0;i<n;i++)
+    {
+        for(int j=i+1;j<n;j++)
+        {
+            int sum = arr[i]+arr[j];
+            int diff = target - sum;
+            if(mp.find(diff)!=mp.end()){
+                if(mp[diff].first!=i && mp[diff].second!=j){
+                    return Y;
+                }
+            }
+            mp[sum] = {i,j};
+        }
+    }
+    return N;
+}
