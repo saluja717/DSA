@@ -1,0 +1,21 @@
+#include<set>
+  vector<vector<int>>ans;
+void call(vector<int>&arr, int i, int n, int k,int sum,vector<int>take)
+{
+     if(i==n){
+         if(sum==k){
+             ans.push_back(take);
+         }
+         return;
+     }
+     take.push_back(arr[i]);
+     call(arr,i+1,n,k,sum+arr[i],take);
+     take.pop_back();
+     call(arr,i+1,n,k,sum,take);
+}
+
+vector<vector<int>> findSubsetsThatSumToK(vector<int> arr, int n, int k)
+{
+    call(arr,0,n,k,0,{});
+    return ans;
+}

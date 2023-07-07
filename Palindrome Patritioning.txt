@@ -1,0 +1,39 @@
+#include <bits/stdc++.h> 
+
+vector<vector<string>>ans;
+
+
+bool valid(string s)
+{
+    int i=0,n=s.size()-1;
+    while(i<n)
+    {
+        if(s[i]!=s[n]) return false;
+        i++;
+        n--;
+    }
+    return true;
+}
+
+void call(string &s,int i,int n,vector<string>temp)
+{
+      if(i==n){
+          ans.push_back(temp);
+          return;
+      }
+      for(int j=i;j<n;j++)
+      {
+          string get = s.substr(i,j-i+1);
+          if(valid(get)){
+              temp.push_back(get);
+              call(s,j+1,n,temp);
+              temp.pop_back();
+          }
+      }
+}
+
+vector<vector<string>> partition(string &s) 
+{
+    call(s,0,s.size(),{});
+    return ans;
+}

@@ -1,0 +1,22 @@
+#include<bits/stdc++.h>
+vector<vector<int>>ans;
+void call(vector<int> &arr,int i,int n, int target,vector<int> temp)
+{
+	if(i==n){
+		if(accumulate(temp.begin(),temp.end(),0)==target){
+			if(find(ans.begin(),ans.end(),temp)==ans.end())ans.push_back(temp);
+		}
+		return;
+	}
+	temp.push_back(arr[i]);
+	call(arr,i+1,n,target,temp);
+	temp.pop_back();
+	while(i+1<n && arr[i]==arr[i+1]) i++;
+	call(arr,i+1,n,target,temp);
+}
+
+vector<vector<int>> combinationSum2(vector<int> &arr, int n, int target){
+   sort(arr.begin(),arr.end());  
+   call(arr,0,n,target,{}); 
+   return ans;  
+}

@@ -1,0 +1,30 @@
+#include <bits/stdc++.h> 
+double maximumValue (vector<pair<int, int>>& items, int n, int w)
+{
+    vector<pair<double,int>>per_kg;
+    for(int i=0;i<n;i++)
+    {
+        double temp = (double)items[i].second/items[i].first;
+        per_kg.push_back({temp,i});
+    }
+    sort(per_kg.begin(),per_kg.end(),greater<pair<double,int>>());
+   // for(int i=0;i<n;i++)
+    // {
+    //     cout<<per_kg[i].first<<endl;
+    // }
+    double ans = 0;
+
+    for(int i=0;i<n && w>0;i++)
+    {
+       if(w>=items[per_kg[i].second].first)
+       {
+           w=w-items[per_kg[i].second].first;
+           ans = ans + items[per_kg[i].second].second;
+       }
+       else{
+           ans = ans + w*per_kg[i].first;
+           w=0; 
+       }
+    }
+    return ans;
+}

@@ -1,0 +1,30 @@
+#include <bits/stdc++.h> 
+
+bool comp(vector<int>a,vector<int>b)
+{
+    return a[1]>b[1];
+}
+
+int jobScheduling(vector<vector<int>> &jobs)
+{
+    int max_deadline=INT_MIN,max_profit=0;
+    int n = jobs.size();
+    for(int i=0;i<n;i++)
+    {
+        max_deadline=max(max_deadline,jobs[i][0]);
+    }
+    vector<bool>v(max_deadline+1,false);
+    sort(jobs.begin(),jobs.end(),comp);
+    for(int i=0;i<n;i++)
+    {
+       int j=jobs[i][0];
+       while(j>0 && v[j]==true){
+           j--;
+       }
+       if(j>0){
+           v[j]=true;
+           max_profit=max_profit+jobs[i][1];
+       }
+    }
+    return max_profit;
+}

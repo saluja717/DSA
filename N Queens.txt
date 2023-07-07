@@ -1,0 +1,61 @@
+vector<vector<int>>ans;
+bool valid(int i,int j,vector<vector<int>>board,int n)
+{
+    board[i][j]=1;
+    for(int k=i-1;k>=0;k--){
+        if(board[k][j]==1) return false;
+    }
+
+    int temp=j-1;
+    for(int k=i-1;k>=0 && temp>=0;k--)
+    {
+        if(board[k][temp]==1){
+            return false;
+        }
+        temp--;
+    }
+
+    temp=j+1;
+    for(int k=i-1;k>=0 && temp<n;k--)
+    {
+        if(board[k][temp]==1){
+            return false;
+        }
+        temp++;
+    }
+    return true;
+}
+
+
+
+void call(int n,vector<vector<int>>&board,int i)
+{
+     if(i==n){
+         vector<int>temp;
+         for(int k=0;k<n;k++)
+         {
+             for(int j=0;j<n;j++)
+             {
+                temp.push_back(board[k][j]);
+             }
+         }
+         ans.push_back(temp);
+         return;
+     }
+     for(int j=0;j<n;j++)
+     {
+         if(valid(i,j,board,n))
+         {
+           //cout<<i<<" "<<j<<endl;
+           board[i][j]=1;
+           call(n,board,i+1);
+           board[i][j]=0;
+         }
+     }
+}
+
+vector<vector<int>> solveNQueens(int n) {
+    vector<vector<int>>board(n,vector<int>(n,0));
+    call(n,board,0);
+    return ans;
+}
