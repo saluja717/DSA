@@ -1,0 +1,38 @@
+#include<algorithm>
+
+int find(vector<vector<int>> &matrix,int val)
+{
+    int count=0;
+    for(int i=0;i<matrix.size();i++){
+        int s=0,e=matrix[i].size()-1;
+        while(s<=e)
+        {
+            int mid = (s+e)/2;
+            if(matrix[i][mid]>val){
+                e=mid-1;
+            }
+            else{
+                s=mid+1;
+            }
+        }
+        count=count+s;
+    }
+    return count;
+}
+
+int getMedian(vector<vector<int>> &matrix)
+{
+   long long int s=0,e=1e5;
+   int n = (matrix[0].size()*matrix.size())/2;
+   while(s<=e){
+       long long int mid = (s+e)/2;
+       long long int get = find(matrix,mid);
+      if(get>n){
+           e=mid-1;
+       }
+       else{
+           s=mid+1;
+       }
+   }
+   return s;
+}
